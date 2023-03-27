@@ -16,37 +16,27 @@ class MyApp extends StatelessWidget {
         ),
         home: Container(
 
-          color: Colors.white,
+          color: Colors.black,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
-              Stack(
-                alignment: AlignmentDirectional.center,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    color: Colors.red,
-                    width: 100,
-                    height: 100,
-                  ),
-                  Container(
-                    color: Colors.blue,
+                    color: Colors.cyan,
                     width: 50,
                     height: 50,
-                  )
-                ],
-              ),
-              Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  Container(
-                    color: Colors.blue,
-                    width: 100,
-                    height: 100,
                   ),
                   Container(
-                    color: Colors.red,
+                    color: Colors.pinkAccent,
+                    width: 50,
+                    height: 50,
+                  ),
+                  Container(
+                    color: Colors.purple,
                     width: 50,
                     height: 50,
                   )
@@ -73,15 +63,27 @@ class MyApp extends StatelessWidget {
                   )
                 ],
               ),
-              Container(
-                  color: Colors.amber,
-                  height: 30,
-                  width: 300,
-                  child: Text(
-                    'Diamante amarelo',
-                    style: TextStyle(color: Colors.black, fontSize: 28),
-                    textAlign: TextAlign.center,
-                  )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    color: Colors.cyan,
+                    width: 50,
+                    height: 50,
+                  ),
+                  Container(
+                    color: Colors.pinkAccent,
+                    width: 50,
+                    height: 50,
+                  ),
+                  Container(
+                    color: Colors.purple,
+                    width: 50,
+                    height: 50,
+                  )
+                ],
+              ),
               ElevatedButton(
                   onPressed: () {
                     print("você apertou o botão");
