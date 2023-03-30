@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool opacidade = true;
 
   @override
   Widget build(BuildContext context) {
@@ -19,32 +26,42 @@ class MyApp extends StatelessWidget {
           leading: Container(),
           title: Text('Tarefas'),
         ),
-        body: ListView(
-          children: [
-            Task(
-                "ler livro",
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7B7_B_m1UHCJVAUTTT5mMzQwRV6H9T7shDC_ZukyLBw&s',
-                3),
-            Task(
-                "academia",
-                'https://img.freepik.com/fotos-gratis/casal-em-forma-levantando-halteres-na-academia_329181-19979.jpg?w=1380&t=st=1680044398~exp=1680044998~hmac=d97deb7aff2c0688d15dad241e80a6e630209706c2ad0cbad2f0a224799b5b3c',
-                1),
-            Task(
-                "jogar",
-                'https://img.freepik.com/fotos-gratis/dois-amigos-adolescentes-jogando-videogame-juntos-em-casa_23-2149332884.jpg?w=1380&t=st=1680044425~exp=1680045025~hmac=134552d726cab4d2cf50503d2c41b8374c6058eb9e3962504ee74169dbe11d80',
-                2),
-            Task(
-                "estudar",
-                'https://img.freepik.com/fotos-gratis/feche-a-mao-fazendo-anotacoes_23-2148950524.jpg?w=1380&t=st=1680044481~exp=1680045081~hmac=9f0bec99dc1fac3df31f0b1522ed6da9ada430581b4eff9c56790b70d8f62f4a',
-                3),
-            Task(
-                "dormir",
-                'https://img.freepik.com/fotos-gratis/minha-cama-e-minha-melhor-amiga_329181-10418.jpg?w=1380&t=st=1680044502~exp=1680045102~hmac=a7273cb795f657dce972783d44b2b320a174033c5e62aebd69fb5c673345d62f',
-                4)
-          ],
+        body: AnimatedOpacity(
+          duration: Duration(milliseconds: 800),
+          opacity: opacidade == true ? 1 : 0,
+          child: ListView(
+            children: [
+              Task(
+                  "ler livro",
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7B7_B_m1UHCJVAUTTT5mMzQwRV6H9T7shDC_ZukyLBw&s',
+                  3),
+              Task(
+                  "academia",
+                  'https://img.freepik.com/fotos-gratis/casal-em-forma-levantando-halteres-na-academia_329181-19979.jpg?w=1380&t=st=1680044398~exp=1680044998~hmac=d97deb7aff2c0688d15dad241e80a6e630209706c2ad0cbad2f0a224799b5b3c',
+                  1),
+              Task(
+                  "jogar",
+                  'https://img.freepik.com/fotos-gratis/dois-amigos-adolescentes-jogando-videogame-juntos-em-casa_23-2149332884.jpg?w=1380&t=st=1680044425~exp=1680045025~hmac=134552d726cab4d2cf50503d2c41b8374c6058eb9e3962504ee74169dbe11d80',
+                  2),
+              Task(
+                  "estudar",
+                  'https://img.freepik.com/fotos-gratis/feche-a-mao-fazendo-anotacoes_23-2148950524.jpg?w=1380&t=st=1680044481~exp=1680045081~hmac=9f0bec99dc1fac3df31f0b1522ed6da9ada430581b4eff9c56790b70d8f62f4a',
+                  3),
+              Task(
+                  "dormir",
+                  'https://img.freepik.com/fotos-gratis/minha-cama-e-minha-melhor-amiga_329181-10418.jpg?w=1380&t=st=1680044502~exp=1680045102~hmac=a7273cb795f657dce972783d44b2b320a174033c5e62aebd69fb5c673345d62f',
+                  4)
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            setState((){
+              opacidade = !opacidade;
+
+            });
+          },
+          child: Icon(Icons.remove_red_eye),
         ),
       ),
     );
@@ -74,11 +91,8 @@ class _TaskState extends State<Task> {
         child: Stack(
           children: [
             Container(
-
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                color: Colors.blue
-              ),
+                  borderRadius: BorderRadius.circular(4), color: Colors.blue),
               height: 140,
             ),
             Column(
@@ -86,8 +100,7 @@ class _TaskState extends State<Task> {
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
-                      color: Colors.white
-                  ),
+                      color: Colors.white),
                   height: 100,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,8 +108,7 @@ class _TaskState extends State<Task> {
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            color: Colors.black26
-                        ),
+                            color: Colors.black26),
                         width: 72,
                         height: 100,
                         child: ClipRRect(
@@ -182,7 +194,9 @@ class _TaskState extends State<Task> {
                       child: Container(
                         width: 200,
                         child: LinearProgressIndicator(
-                          value: (widget.dificuldade > 0) ? (nivel/widget.dificuldade) / 10: 1,
+                          value: (widget.dificuldade > 0)
+                              ? (nivel / widget.dificuldade) / 10
+                              : 1,
                           color: Colors.white,
                         ),
                       ),
